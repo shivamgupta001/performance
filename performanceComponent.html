@@ -1,0 +1,100 @@
+<template id="perf-comp">
+	<style type="text/css">
+		#perf{
+			display: flex;
+			flex-direction : column;
+			width : 400px;
+			height : 400px;
+			border : 2px solid black;
+			border-radius: 5px;
+			font-family: "Times New Roman", Georgia, Serif;
+		}
+		::content li{
+			list-style-type: none;
+			display: flex;
+			justify-content: center;
+		}
+		#code{
+			display : flex;
+			flex : 1;
+			background-color: cornsilk;
+			justify-content: center;
+			align-items : center;
+
+		}
+		#result-header{
+			display: flex;
+			height : 20px;
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+			text-align: center;
+		}
+		#result-set{
+			display : flex;
+			height : 50px;
+			flex-flow : row wrap;
+		}
+		#result{
+			flex : 1;
+		}
+		.browser{
+			background-color: aquamarine;
+		}
+		.chrome{
+			background-color: antiquewhite;
+		}
+		.mozilla{
+			background-color: lightyellow;
+		}
+		.ie{
+			background-color: bisque;
+		}
+		hr{
+			margin : 0px;
+		}
+	</style>
+	<div id="perf">
+
+		<div id="code"><content select="code"></content></div>
+
+		<div id="result-header">
+			<div id="result" class="browser">Browser</div>
+			<div id="result" class="chrome">Chrome</div>
+			<div id="result" class="mozilla">Mozilla</div>
+			<div id="result" class="ie">IE</div>
+		</div>
+		<div id="result-set">
+			<div id="result" class="browser"><content select="li.firstBrowser"></content></div>
+			<div id="result" class="chrome"><content select="li.firstChrome"></content></div>
+			<div id="result" class="mozilla"><content select="li.firstMozilla"></content></div>
+			<div id="result" class="ie"><content select="li.firstIE"></content></div>
+		</div>
+		<hr/>
+		<div id="result-set">
+			<div id="result" class="browser"><content select="li.secBrowser"></content></div>
+			<div id="result" class="chrome"><content select="li.secChrome"></content></div>
+			<div id="result" class="mozilla"><content select="li.secMozilla"></content></div>
+			<div id="result" class="ie"><content select="li.secIE"></content></div>
+		</div>
+	</div>
+</template>
+<script type="text/javascript">
+	var thisdoc = document._currentScript.ownerDocument;
+	var template = thisdoc.getElementById("perf-comp");
+
+	var proto = Object.create(HTMLElement.prototype);
+
+	proto.createdCallback = function(){
+		this.setAttribute('role','performance-card')
+	};
+
+	proto.attachedCallback = function(){
+		var clone = document.importNode(template.content , true);
+		this.createShadowRoot().appendChild(clone);
+	
+	};
+
+	document.registerElement('performance-card',{
+		prototype : proto
+	});
+</script>>

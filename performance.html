@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Performance Component</title>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.22/webcomponents.js"></script>
+	<link rel="import" type="text/css" href="performanceComponent.html">
+	<style type="text/css">
+		performance-card{
+			float: left;
+			margin : 5px;
+		}
+	</style>
+</head>
+<body>
+	<performance-card>
+		 <code>
+			    var val = 'Date(102453689)';<br/>
+				var i;<br/>
+
+				console.time('regex');<br/>
+				for (var i=0;i<=10000; i++) {<br/>
+				    var date = new Date(+val.match(/\d+/g)[0]);<br/>
+				}<br/>
+				console.timeEnd('regex');<br/>
+				 <br/>
+				console.time('eval');<br/>
+				for(i=0;i<=10000;i++){<br/>
+					date = eval('new '+val);<br/>
+				}<br/>
+				console.timeEnd('eval');<br/>
+		</code>
+		<li class="firstBrowser">regex</li>
+		<li class="firstBrowser">eval</li>
+
+		<li class="firstChrome">19.831ms</li>
+		<li class="firstChrome">458.662ms</li>
+
+		<li class="firstMozilla">24.35ms</li>
+		<li class="firstMozilla">8721.74ms</li>
+		
+		<li class="firstIE">29.051ms</li>
+		<li class="firstIE">27.693ms</li>
+		
+		<li class="secBrowser">regex</li>
+		<li class="secBrowser">eval</li>
+		
+		<li class="secChrome">28.011ms</li>
+		<li class="secChrome">534.229ms</li>
+
+		<li class="secMozilla">23.63ms</li>
+		<li class="secMozilla">8368.6ms</li>
+
+		<li class="secIE">37.482ms</li>
+		<li class="secIE">41.864ms</li>
+	</performance-card>
+
+	<performance-card>
+		 <code>
+			    var array = new Array ();<br>
+				for (var i=0; i<=10000; i++) {<br>
+				    array[i] = 0;<br>
+				}<br>
+				 <br>
+				console.time('for');<br>
+				var l = array.length;<br>
+				for (var i=0;i<=l; i++) {<br>
+				    array[i] = i;<br>
+				}<br>
+				console.timeEnd('for');<br>
+				 <br>
+				console.time('jquery');<br>
+				$.each (array, function (i) {<br>
+				    array[i] = i;<br>
+				});<br>
+				console.timeEnd('jquery');<br>
+		</code>
+		<li class="firstBrowser">for</li>
+		<li class="firstBrowser">each</li>
+
+		<li class="firstChrome">1.043ms</li>
+		<li class="firstChrome">1.733ms</li>
+
+		<li class="firstMozilla">40.77ms</li>
+		<li class="firstMozilla">6.96ms</li>
+		
+		<li class="firstIE">4.927ms</li>
+		<li class="firstIE">5.821ms</li>
+		
+		<li class="secBrowser">for</li>
+		<li class="secBrowser">each</li>
+		
+		<li class="secChrome">0.672ms</li>
+		<li class="secChrome">2.585ms</li>
+
+		<li class="secMozilla">44.24ms</li>
+		<li class="secMozilla">6.43ms</li>
+
+		<li class="secIE">12.187ms</li>
+		<li class="secIE">14.34ms</li>
+	</performance-card>	
+
+	<performance-card>
+		 <code>
+			    var array = new Array ();<br>
+				for (var i=0; i<=10000; i++) {<br>
+				    array[i] = 0;<br>
+				}<br>
+				 
+				console.time('for');<br>
+				for (var i=0;i<=array.length; i++){<br>
+				    array[i] = i;<br>
+				}<br>
+				console.timeEnd('for');<br>
+				 
+				console.time('Array.prototype');<br>
+				Array.prototype.forEach.call(array, function (i) {<br>
+				    array[i] = i;<br>
+				});<br>
+				console.timeEnd('Array.prototype');<br>
+		</code>
+		<li class="firstBrowser">for</li>
+		<li class="firstBrowser">Array.proto</li>
+
+		<li class="firstChrome">0.194ms</li>
+		<li class="firstChrome">0.312ms</li>
+
+		<li class="firstMozilla">19.37ms</li>
+		<li class="firstMozilla">2.57ms</li>
+		
+		<li class="firstIE">3.081ms</li>
+		<li class="firstIE">1.357ms</li>
+		
+		<li class="secBrowser">for</li>
+		<li class="secBrowser">Array.proto</li>
+		
+		<li class="secChrome">0.198ms</li>
+		<li class="secChrome">0.313ms</li>
+
+		<li class="secMozilla">18.72ms</li>
+		<li class="secMozilla">2.5ms</li>
+
+		<li class="secIE">3.007ms</li>
+		<li class="secIE">1.38ms</li>
+	</performance-card>	
+
+	<performance-card>
+		 <code>
+			    var array = new Array ();<br>
+				for (var i=0; i<=10000; i++) {<br>
+				    array[i] = 0;<br>
+				}<br>
+				<br> 
+				console.time('forEach');<br>
+				array.forEach(function(val , i){<br>
+					array[i] = i;<br>
+				});<br>
+				console.timeEnd('forEach');<br>
+				 <br>
+				console.time('Array.prototype');<br>
+				Array.prototype.forEach.call(array, function (i) {<br>
+				    array[i] = i;<br>
+				});<br>
+				console.timeEnd('Array.prototype');<br>
+		</code>
+		<li class="firstBrowser">forEach</li>
+		<li class="firstBrowser">Array.proto</li>
+
+		<li class="firstChrome">2.946ms</li>
+		<li class="firstChrome">2.319ms</li>
+
+		<li class="firstMozilla">2.75ms</li>
+		<li class="firstMozilla">2.52ms</li>
+		
+		<li class="firstIE">1.39ms</li>
+		<li class="firstIE">1.41ms</li>
+		
+		<li class="secBrowser">forEach</li>
+		<li class="secBrowser">Array.proto</li>
+		
+		<li class="secChrome">2.692ms</li>
+		<li class="secChrome">2.233ms</li>
+
+		<li class="secMozilla">2.71ms</li>
+		<li class="secMozilla">2.17ms</li>
+
+		<li class="secIE">1.454ms</li>
+		<li class="secIE">1.442ms</li>
+	</performance-card>
+
+	<performance-card>
+		 <code> 
+		 		//Try in jQuery Site<br>
+		 		var i;<br>
+				console.time('jquery');<br>
+				for(i=0;i<=10000;i++)<br>	
+					$('#cboxNext');<br>
+				console.timeEnd('jquery');<br>
+				<br>
+				console.time('querySelector');<br>
+				for(i=0;i<=10000;i++)<br>
+					document.querySelector('#cboxNext');<br>
+				console.timeEnd('querySelector');<br>
+		</code>
+		<li class="firstBrowser">jquery</li>
+		<li class="firstBrowser">querySelector</li>
+
+		<li class="firstChrome">9.415ms</li>
+		<li class="firstChrome">1.763ms</li>
+
+		<li class="firstMozilla">19.09ms</li>
+		<li class="firstMozilla">19.54ms</li>
+		
+		<li class="firstIE">24.944ms</li>
+		<li class="firstIE">17.01ms</li>
+		
+		<li class="secBrowser">jquery</li>
+		<li class="secBrowser">querySelector</li>
+		
+		<li class="secChrome">8.118ms</li>
+		<li class="secChrome">1.719ms</li>
+
+		<li class="secMozilla">18.81ms</li>
+		<li class="secMozilla">19.2ms</li>
+
+		<li class="secIE">25.226ms</li>
+		<li class="secIE">17.386ms</li>
+	</performance-card>
+
+	<performance-card>
+		 <code> 
+		 		//Try in jQuery Site<br>
+		 		var i;<br>
+				console.time('querySelector');<br>
+				for(i=0;i<=10000;i++)<br>	
+					document.querySelector('#cboxNext')<br>
+				console.timeEnd('querySelector')<br>
+				<br>
+				console.time('getElementById')<br>
+				for(i=0;i<=10000;i++)<br>	
+					document.getElementById('#cboxNext');<br>
+				console.timeEnd('getElementById');<br>
+		</code>
+		<li class="firstBrowser">querySelector</li>
+		<li class="firstBrowser">getEleById</li>
+
+		<li class="firstChrome">1.699ms</li>
+		<li class="firstChrome">0.950ms</li>
+
+		<li class="firstMozilla">20.08ms</li>
+		<li class="firstMozilla">18.3ms</li>
+		
+		<li class="firstIE">16.908ms</li>
+		<li class="firstIE">9.957ms</li>
+		
+		<li class="secBrowser">querySelector</li>
+		<li class="secBrowser">getEleById</li>
+		
+		<li class="secChrome">1.709ms</li>
+		<li class="secChrome">0.959ms</li>
+
+		<li class="secMozilla">19.89ms</li>
+		<li class="secMozilla">18.27ms</li>
+
+		<li class="secIE">17.2ms</li>
+		<li class="secIE">10.361ms</li>
+	</performance-card>
+
+	<performance-card>
+		 <code> 
+		 		//Try in jQuery Site<br>
+		 		var i;<br>
+				console.time('jquery');<br>
+				for(i=0;i<=10000;i++)<br>	
+					$('.icon-group');<br>
+				console.timeEnd('jquery');<br>
+				<br>
+				console.time('querySelectorAll');<br>
+				for(i=0;i<=10000;i++)<br>	
+					document.querySelectorAll('.icon-group');<br>
+				console.timeEnd('querySelectorAll');<br>
+		</code>
+		<li class="firstBrowser">jquery</li>
+		<li class="firstBrowser">querySelAll</li>
+
+		<li class="firstChrome">12.580ms</li>
+		<li class="firstChrome">48.303ms</li>
+
+		<li class="firstMozilla">40.22ms</li>
+		<li class="firstMozilla">115.33ms</li>
+		
+		<li class="firstIE">54.369ms</li>
+		<li class="firstIE">204.17ms</li>
+		
+		<li class="secBrowser">jquery</li>
+		<li class="secBrowser">querySelAll</li>
+		
+		<li class="secChrome">25.094ms</li>
+		<li class="secChrome">50.294ms</li>
+
+		<li class="secMozilla">39.58ms</li>
+		<li class="secMozilla">116.2ms</li>
+
+		<li class="secIE">55.451ms</li>
+		<li class="secIE">219.433ms</li>
+	</performance-card>
+
+	<performance-card>
+		 <code> 
+		 		//Try in jQuery Site<br>
+		 		var i;<br>
+				console.time('jquery');<br>
+				for(i=0;i<=10000;i++)<br>	
+					$('.icon-group');<br>
+				console.timeEnd('jquery');<br>
+				<br>
+				console.time('getElementsByClassName');<br>
+				for(i=0;i<=10000;i++)<br>	
+					document.getElementsByClassName('.icon-group');<br>
+				console.timeEnd('getElementsByClassName');<br>
+		</code>
+		<li class="firstBrowser">jquery</li>
+		<li class="firstBrowser">ByClassName</li>
+
+		<li class="firstChrome">12.270ms</li>
+		<li class="firstChrome">1.106ms</li>
+
+		<li class="firstMozilla">41.19ms</li>
+		<li class="firstMozilla">18.59ms</li>
+		
+		<li class="firstIE">54.081ms</li>
+		<li class="firstIE">11.616ms</li>
+		
+		<li class="secBrowser">jquery</li>
+		<li class="secBrowser">ByClassName</li>
+		
+		<li class="secChrome">14.099ms</li>
+		<li class="secChrome">1.139ms</li>
+
+		<li class="secMozilla">40.4ms</li>
+		<li class="secMozilla">19.18ms</li>
+
+		<li class="secIE">55.722ms</li>
+		<li class="secIE">13.237ms</li>
+	</performance-card>
+
+</body>
+</html>
